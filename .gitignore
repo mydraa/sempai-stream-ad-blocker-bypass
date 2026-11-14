@@ -1,0 +1,6 @@
+node_modules/
+.playwright-artifacts/
+coverage/
+.DS_Store
+Thumbs.db
+*.log

@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Paramètres — Senpai Stream Assistant Publicités</title>
+  <link rel="stylesheet" href="settings.css">
+</head>
+<body>
+  <header class="page-header">
+    <div class="header-inner">
+      <div class="brand">
+        <img src="../../icons/icon-48.png" alt="" width="32" height="32" class="brand-icon">
+        <div>
+          <h1>Paramètres — Senpai Stream</h1>
+          <p class="subtitle">Automatisation, domaines autorisés et journaux de diagnostic</p>
+        </div>
+      </div>
+      <div id="save-banner" class="save-banner" role="status" aria-live="polite"></div>
+    </div>
+  </header>
+
+  <main class="page-main">
+    <section class="card" aria-labelledby="behavior-heading">
+      <h2 id="behavior-heading">Comportement et gestion du focus</h2>
+      <form id="settings-form" aria-labelledby="behavior-heading" novalidate>
+        <div class="checkbox-stack">
+          <div class="check-row">
+            <input type="checkbox" id="opt-enabled" name="enabled">
+            <label for="opt-enabled">Activer l’extension globalement</label>
+          </div>
+          <div class="check-row">
+            <input type="checkbox" id="opt-autostart" name="autoStart">
+            <label for="opt-autostart">Démarrage automatique sur les domaines autorisés</label>
+          </div>
+          <div class="check-row">
+            <input type="checkbox" id="opt-autoclose" name="autoCloseAdTabs">
+            <label for="opt-autoclose">Fermeture automatique des onglets publicitaires ouverts par l’extension</label>
+          </div>
+          <div class="check-row">
+            <input type="checkbox" id="opt-notify" name="notifyOnComplete">
+            <label for="opt-notify">Afficher une notification lorsque le lecteur est débloqué (5/5)</label>
+          </div>
+          <div class="check-row">
+            <input type="checkbox" id="opt-show-logs" name="showLogsInSettings">
+            <label for="opt-show-logs">Afficher les journaux de diagnostic dans cette page</label>
+          </div>
+        </div>
+
+        <fieldset class="radio-fieldset">
+          <legend>Stratégie de gestion du focus</legend>
+          <p class="hint">
+            Chrome ne peut maintenir qu’un seul onglet actif par fenêtre, et Senpai Stream exige un retour sur l’onglet principal après au moins 1,5 s sur la publicité. Pour travailler sans interruption sur un autre onglet, gardez Senpai Stream dans une fenêtre dédiée.
+          </p>
+          <div class="radio-row">
+            <input type="radio" id="focus-respectful" name="focusPolicy" value="respectful">
+            <label for="focus-respectful">
+              Respectueux du focus (recommandé) — met en pause si vous changez d’onglet dans la même fenêtre
+            </label>
+          </div>
+          <div class="radio-row">
+            <input type="radio" id="focus-autoswitch" name="focusPolicy" value="auto_switch">
+            <label for="focus-autoswitch">
+              Bascule automatique — active brièvement l’onglet principal pour valider puis revient sur votre onglet
+            </label>
+          </div>
+        </fieldset>
+
+        <h3 class="sub-heading">Délais et tentatives</h3>
+        <div class="inputs-grid">
+          <div class="field">
+            <label for="opt-ad-hold">Maintien sur l’onglet publicitaire (ms)</label>
+            <span id="hint-ad-hold" class="hint">Minimum conseillé : 1650 ms (le site bloque sous 1500 ms).</span>
+            <input
+              type="number"
+              id="opt-ad-hold"
+              name="adHoldMs"
+              min="1650"
+              max="15000"
+              step="50"
+              required
+              aria-describedby="hint-ad-hold"
+              data-error="err-ad-hold"
+            >
+            <div id="err-ad-hold" class="error-msg">
+              <span role="img" aria-label="Erreur">❌</span> Indiquez une durée comprise entre 1650 et 15000 ms.
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="opt-step-timeout">Durée maximale d’attente par étape (ms)</label>
+            <span id="hint-step-timeout" class="hint">Entre 5000 et 120000 ms (défaut : 20000 ms).</span>
+            <input
+              type="number"
+              id="opt-step-timeout"
+              name="stepTimeoutMs"
+              min="5000"
+              max="120000"
+              step="500"
+              required
+              aria-describedby="hint-step-timeout"
+              data-error="err-step-timeout"
+            >
+            <div id="err-step-timeout" class="error-msg">
+              <span role="img" aria-label="Erreur">❌</span> Indiquez une durée comprise entre 5000 et 120000 ms.
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="opt-inter-step">Pause entre deux étapes validées (ms)</label>
+            <span id="hint-inter-step" class="hint">Entre 300 et 10000 ms (défaut : 700 ms).</span>
+            <input
+              type="number"
+              id="opt-inter-step"
+              name="interStepDelayMs"
+              min="300"
+              max="10000"
+              step="100"
+              required
+              aria-describedby="hint-inter-step"
+              data-error="err-inter-step"
+            >
+            <div id="err-inter-step" class="error-msg">
+              <span role="img" aria-label="Erreur">❌</span> Indiquez une durée comprise entre 300 et 10000 ms.
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="opt-max-retries">Nombre maximal de tentatives par étape</label>
+            <span id="hint-max-retries" class="hint">Entre 0 et 5 tentatives (défaut : 2).</span>
+            <input
+              type="number"
+              id="opt-max-retries"
+              name="maxRetries"
+              min="0"
+              max="5"
+              step="1"
+              required
+              aria-describedby="hint-max-retries"
+              data-error="err-max-retries"
+            >
+            <div id="err-max-retries" class="error-msg">
+              <span role="img" aria-label="Erreur">❌</span> Indiquez un entier entre 0 et 5.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Enregistrer les paramètres</button>
+          <button type="button" id="reset-defaults-btn" class="btn btn-secondary">Rétablir les valeurs par défaut</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="card" aria-labelledby="domains-heading">
+      <h2 id="domains-heading">Domaines Senpai Stream autorisés</h2>
+      <p class="hint">
+        Manifest V3 n’autorise pas les motifs génériques sur toutes les extensions (.xyz, .to, .fr…). Chaque nouveau domaine reçoit une autorisation explicite et isolée.
+      </p>
+
+      <form id="add-domain-form" class="domain-form" aria-labelledby="domains-heading" novalidate>
+        <div class="field domain-field">
+          <label for="new-domain-input">Ajouter un domaine ou une URL</label>
+          <span id="hint-domain" class="hint">Exemple : senpai-stream.xyz ou https://senpai-stream.to</span>
+          <input
+            type="text"
+            id="new-domain-input"
+            name="domain"
+            placeholder="senpai-stream.xyz"
+            autocorrect="off"
+            autocapitalize="none"
+            spellcheck="false"
+            required
+            aria-describedby="hint-domain"
+            data-error="err-domain"
+          >
+          <div id="err-domain" class="error-msg">
+            <span role="img" aria-label="Erreur">❌</span> Saisissez un nom de domaine ou une URL HTTPS valide (ou http://localhost).
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Autoriser ce domaine</button>
+      </form>
+
+      <div id="domain-feedback" class="feedback-line" role="status" aria-live="polite"></div>
+
+      <table class="data-table">
+        <caption>Liste des origines configurées</caption>
+        <thead>
+          <tr>
+            <th scope="col">Origine</th>
+            <th scope="col">Statut</th>
+            <th scope="col">Automatisation</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="domains-tbody"></tbody>
+      </table>
+    </section>
+
+    <section id="logs-section" class="card" aria-labelledby="logs-heading">
+      <div class="section-bar">
+        <h2 id="logs-heading">Journaux de diagnostic</h2>
+        <div class="logs-toolbar">
+          <label for="log-level-filter" class="visually-hidden">Filtrer par niveau</label>
+          <select id="log-level-filter" name="level">
+            <option value="all">Tous les niveaux</option>
+            <option value="info">Information</option>
+            <option value="warn">Avertissements</option>
+            <option value="error">Erreurs</option>
+          </select>
+          <button type="button" id="refresh-logs-btn" class="btn btn-secondary">Actualiser</button>
+          <button type="button" id="export-logs-btn" class="btn btn-secondary">Exporter JSON</button>
+          <button type="button" id="clear-logs-btn" class="btn btn-danger">Vider</button>
+        </div>
+      </div>
+      <p class="hint">Les journaux restent stockés localement sur votre appareil et excluent cookies, jetons d’accès et mots de passe.</p>
+      <div id="logs-list" class="logs-list" role="log" aria-live="off"></div>
+    </section>
+  </main>
+
+  <script type="module" src="settings.js"></script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="fr" class="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Senpai-Stream — Épisode Test Local</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: #090b10;
+      color: #f3f4f6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 16px;
+    }
+    .page-wrap {
+      width: 100%;
+      max-width: 760px;
+    }
+    .domain-banner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: #141824;
+      border: 1px solid #2b3247;
+      margin-bottom: 18px;
+      font-size: 13px;
+    }
+    .player-shell {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid #2d354b;
+      background: #0f131f;
+      min-height: 380px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    media-player {
+      display: block;
+      width: 100%;
+      padding: 36px 24px;
+      text-align: center;
+    }
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(8, 10, 16, 0.92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .gate-card {
+      background: #0f0f14;
+      border: 1px solid #2b3145;
+      border-radius: 16px;
+      padding: 24px;
+      width: 100%;
+      max-width: 420px;
+    }
+    .bars {
+      margin-top: 20px;
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+    }
+    .bar {
+      height: 6px;
+      flex: 1;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .bar.bg-primary-500 {
+      background: #8b5cf6;
+    }
+    .counter {
+      margin-top: 12px;
+      text-align: center;
+      color: #9ca3af;
+      font-variant-numeric: tabular-nums;
+    }
+    .cta {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 44px;
+      border-radius: 10px;
+      background: #8b5cf6;
+      color: #ffffff;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .status {
+      margin-top: 12px;
+      font-size: 13px;
+      color: #fbbf24;
+      min-height: 18px;
+      text-align: center;
+    }
+    .timer-box {
+      margin-top: 12px;
+      text-align: center;
+      color: #93c5fd;
+      font-size: 14px;
+    }
+    .reload-link {
+      display: inline-block;
+      margin-top: 10px;
+      color: #c4b5fd;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrap">
+    <div class="domain-banner">
+      <span>Simulateur Senpai Stream — Origine : <strong id="mock-origin"></strong></span>
+      <span>Scénario : <strong id="mock-scenario">normal</strong></span>
+    </div>
+
+    <div id="watch-root" x-data="{ unlocked: false }" class="player-shell">
+      <media-player x-ref="player" id="mock-player" title="Lecteur Vidéo Épisode 1">
+        <media-provider>
+          <video id="mock-video" controls width="560" height="240"></video>
+        </media-provider>
+        <p id="player-unlocked-banner">Lecteur vidéo débloqué et prêt pour la lecture.</p>
+      </media-player>
+
+      <div id="adgate-overlay" class="overlay" x-show="!unlocked">
+        <div id="adgate-livewire" wire:id="mock-wire-1" wire:snapshot="">
+          <div id="adgate-card" class="gate-card" data-relay-state="idle" data-relay-expires-in="0">
+            <p class="gate-title" style="margin:0;font-size:22px;font-weight:600;">5 publicités à passer</p>
+            <div id="adgate-howto">
+              <p style="margin:8px 0 0;font-size:14px;color:#d1d5db;">Un onglet s'ouvre, puis reviens ici pour lancer la vidéo.</p>
+              <p style="margin:4px 0 0;font-size:13px;color:#9ca3af;">Garde l'onglet ouvert 1 seconde.</p>
+            </div>
+
+            <div id="adgate-bars" class="bars" aria-hidden="true">
+              <span data-index="0" class="bar bg-white/10"></span>
+              <span data-index="1" class="bar bg-white/10"></span>
+              <span data-index="2" class="bar bg-white/10"></span>
+              <span data-index="3" class="bar bg-white/10"></span>
+              <span data-index="4" class="bar bg-white/10"></span>
+            </div>
+
+            <p id="adgate-counter" class="counter">0/5</p>
+
+            <a id="adgate-continue" href="/go/step-1" target="_blank" rel="noopener" class="cta">
+              <span>Continuer</span>
+            </a>
+
+            <div id="adgate-timer" class="timer-box" style="display:none;">
+              <span id="adgate-timer-label">Patienter : </span>
+              <span id="adgate-timer-value">0</span> s
+            </div>
+
+            <p id="adgate-status" class="status"></p>
+            <p id="adgate-notice" class="status" style="display:none;"></p>
+            <a id="adgate-lien" class="reload-link" href="javascript:location.reload()" style="display:none;">Recharger la page</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/mock-site.js"></script>
+</body>
+</html>

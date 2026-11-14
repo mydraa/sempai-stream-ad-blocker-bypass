@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Senpai Stream — Assistant Publicités</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <img src="../../icons/icon-48.png" alt="" width="24" height="24" class="brand-icon">
+      <div>
+        <h1>Senpai Stream</h1>
+        <p class="subtitle">Automatisation des 5 étapes</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <span id="global-status-pill" class="pill pill-neutral">Chargement…</span>
+      <button id="open-settings-btn" type="button" class="icon-btn" aria-label="Accéder aux paramètres" title="Paramètres">
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="popup-main">
+    <!-- Section État du domaine -->
+    <section class="card" aria-labelledby="domain-heading">
+      <div class="card-row">
+        <h2 id="domain-heading">Domaine actuel</h2>
+        <span id="domain-auth-badge" class="badge badge-neutral">Inconnu</span>
+      </div>
+      <p id="current-hostname" class="hostname-text">—</p>
+      <p id="domain-helper-text" class="helper-text"></p>
+      <div id="add-domain-container" class="action-row" hidden>
+        <button id="add-current-domain-btn" type="button" class="btn btn-accent">
+          Ajouter le domaine actuel
+        </button>
+      </div>
+    </section>
+
+    <!-- Section Progression -->
+    <section class="card" aria-labelledby="progress-heading">
+      <div class="card-row">
+        <h2 id="progress-heading">Progression</h2>
+        <span id="counter-text" class="counter-value">0/5</span>
+      </div>
+
+      <div class="segments" id="step-segments" aria-hidden="true">
+        <span class="segment" data-step="1"></span>
+        <span class="segment" data-step="2"></span>
+        <span class="segment" data-step="3"></span>
+        <span class="segment" data-step="4"></span>
+        <span class="segment" data-step="5"></span>
+      </div>
+
+      <label for="step-progress" class="visually-hidden">Progression des étapes publicitaires</label>
+      <progress id="step-progress" class="native-progress" max="5" value="0">0/5</progress>
+
+      <dl class="status-grid">
+        <div>
+          <dt>Étape actuelle</dt>
+          <dd id="current-step-label">En attente</dd>
+        </div>
+        <div>
+          <dt>État</dt>
+          <dd id="automation-state-label">Inactif</dd>
+        </div>
+      </dl>
+
+      <div id="alert-box" class="alert-box" role="status" hidden></div>
+    </section>
+
+    <!-- Section Contrôles -->
+    <section class="card" aria-labelledby="controls-heading">
+      <h2 id="controls-heading">Contrôles</h2>
+      <div class="controls-grid">
+        <button id="toggle-enabled-btn" type="button" class="btn btn-secondary">
+          Désactiver l’automatisation
+        </button>
+        <button id="start-manual-btn" type="button" class="btn btn-primary">
+          Démarrer manuellement
+        </button>
+        <button id="stop-now-btn" type="button" class="btn btn-danger">
+          Arrêter immédiatement
+        </button>
+        <button id="footer-settings-btn" type="button" class="btn btn-ghost">
+          Accéder aux paramètres
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <div id="live-announcer" class="visually-hidden" aria-live="polite"></div>
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
